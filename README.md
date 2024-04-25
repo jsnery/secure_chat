@@ -39,7 +39,6 @@ firebase_init(
 )
 ```
 
-
 ## Execução
 
 1. Clone este repositório:
@@ -83,10 +82,6 @@ firebase_init(
 
 - Este projeto é uma versão inicial e pode precisar de mais desenvolvimento e ajustes para atender às suas necessidades específicas.
 - Certifique-se de testar o aplicativo completamente e considerar a segurança e o desempenho ao implantá-lo em um ambiente de produção.
-
----
-
-## 
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/richardneri/)
 
