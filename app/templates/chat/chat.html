@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+    <title>Secure - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no"> <!-- Adicionada a tag viewport -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="icon" href="./static/ico.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="{{ url_for('static', filename='css/chat.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de navegação -->
+    {% include 'chat/partials/navbarchat_include.html' %}
+
+    <!-- Corpo do Chat -->
+    {% include 'chat/partials/chatbody_include.html' %}   
+
+    <!-- Barra de envio -->
+    {% include 'chat/partials/sendbar_include.html' %}   
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+
+
+    <!-- Ready -->
+    <script> 
+        $(document).ready(function(){
+            $('#message').focus();
+            $('#send-button').css('display', 'none');
+        });
+    </script>
+
+    <!-- Carregar emojis -->
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#emojibutton', function() {
+                console.log('Botão de emoji clicado');
+                var emojitab = $('#emojitab');
+                if (emojitab.css('display') === 'none') {
+                    console.log('Mostrando a aba de emojis');
+                    $('#emojitab').css('display', 'block');
+                    $('body').css('padding-bottom', '200px');
+                    $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+                } else {
+                    console.log('Escondendo a aba de emojis');
+                    $('#emojitab').css('display', 'none');
+                    $('body').css('padding-bottom', '40px');
+                }
+            });
+
+            $(document).on('click', '#message', function() {
+                $('#emojitab').css('display', 'none');
+                $('body').css('padding-bottom', '40px');
+            });
+            
+            $(document).on('click', '#send-button', function() {
+                $('#emojitab').css('display', 'none');
+                $('body').css('padding-bottom', '40px');
+            });
+            
+            $(document).on('click', '#chat-container', function() {
+                $('#emojitab').css('display', 'none');
+                $('body').css('padding-bottom', '40px');
+            });
+
+            $('.emoji').on('click', function() {
+                $('#send-button').css('display', 'block');
+                $('#record').css('display', 'none');
+                // Obtém o emoji clicado
+                var clickedEmoji = $(this).data('emoji');
+        
+                // Adiciona o emoji ao input do chat
+                var chatInput = $('.msgtextinput');
+                if (chatInput.length) {
+                    chatInput.val(chatInput.val() + clickedEmoji);
+                } else {
+                    console.error('Campo de entrada do chat não encontrado');
+                }
+            });
+
+
+
+        });
+    </script>
+
+    <!-- Carregar mensagens -->
+    <script>
+        $(document).ready(function() {
+            var intervalId;
+            var lastMessages = '';
+        
+            async function loadMessages() {
+                const response = await fetch('/chat/messages');
+                const data = await response.text();
+            
+                if (data !== lastMessages) {
+                    $('#chat-container').html(data);
+                    $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+                    $('#chat-container').find('audio').on('canplaythrough', function() {
+                        // Rolar para a parte inferior quando o áudio estiver pronto para ser reproduzido
+                        $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+                    });
+                    $('#chat-container').find('video').on('canplaythrough', function() {
+                        // Rolar para a parte inferior quando o áudio estiver pronto para ser reproduzido
+                        $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+                    });
+                    lastMessages = data;
+                }
+            }
+            
+            function startLoadingMessages() {
+                loadMessages(); // Carregar mensagens na inicialização
+                setInterval(loadMessages, 200); // Recarregar mensagens a cada 1 segundo
+            }
+        
+            startLoadingMessages();
+        
+            // Prevenir o comportamento padrão do formulário de recarregar a página
+            $('#formSubmit').on('submit', function(e) {
+                e.preventDefault();
+            
+                // Obter os dados do formulário
+                var formData = $(this).serialize();
+            
+                // Enviar o formulário usando AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData
+                })
+                .done(function(response) {
+                    console.log('Cheguei aqui no Done: ' + response);
+                    $('.msgtextinput').val('');
+                    $('.msgtextinput').focus();
+                    $('#send-button').hide();
+                    $('#record').show();
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error(textStatus, errorThrown);
+                })
+                .always(function() {
+                    console.log('Concluído');
+                    // Limpar a caixa de texto
+                    $('.msgtextinput').val('');
+                    $('.msgtextinput').focus();
+                    $('#send-button').hide();
+                    $('#record').show();
+                });
+            });
+
+            $('#message').on('keypress', function(e) {
+                if(e.which == 13) {
+                    e.preventDefault();
+                    $('#formSubmit').submit();
+                    $(this).val('');
+                }
+            });
+
+        
+            $(document).on('click', '.reply-button', function() {
+                console.log('Botão de resposta clicado');
+                var form = $(this).closest('div').parent().next('.reply-form');
+                if (form.length) {
+                    form.toggle();
+                    if (form.is(':visible')) {
+                        console.log('Formulário de resposta aberto');
+                    } else {
+                        console.log('Formulário de resposta fechado');
+                    }
+                } else {
+                    console.log('Formulário de resposta não encontrado');
+                }
+            });
+
+            $(document).on('click', '.showhid-button', function() {
+                console.log('Botão de resposta clicado');
+                var replyButton = $(this).siblings('.reply-button');
+                var deleteButton = $(this).siblings('.deletemsg-button');
+                var replyForm = $(this).closest('div').parent().next('.reply-form');
+                if (replyButton.is(':visible') || deleteButton.is(':visible')) {
+                    $(this).html('<i class="material-icons" style="font-size: 16px; color: #ffffff;">chevron_right</i>');
+                    replyButton.hide();
+                    deleteButton.hide();
+                    replyForm.hide();  // Esconde o formulário de resposta
+                } else {
+                    $(this).html('<i class="material-icons" style="font-size: 16px; color: #00FFFF;">chevron_left</i>');
+                    replyButton.show();
+                    deleteButton.show();
+                }
+            });
+
+            $(document).on('click', '.showhid2-button', function() {
+                console.log('Botão de resposta clicado');
+                var replyButton = $(this).siblings('.reply-button');
+                var deleteButton = $(this).siblings('.deletemsg-button');
+                var replyForm = $(this).closest('div').parent().next('.reply-form');
+                if (replyButton.is(':visible') || deleteButton.is(':visible')) {
+                    $(this).html('<i class="material-icons" style="font-size: 16px; color: #ffffff;">chevron_left</i>');
+                    replyButton.hide();
+                    deleteButton.hide();
+                    replyForm.hide();  // Esconde o formulário de resposta
+                } else {
+                    $(this).html('<i class="material-icons" style="font-size: 16px; color: #00FFFF;">chevron_right</i>');
+                    replyButton.show();
+                    deleteButton.show();
+                }
+            });
+
+            $(document).on('click', '.deletemsg-button', function() {
+                console.log('Botão de deletar mensagem clicado');
+                var userId = $(this).attr('user-id');
+                
+                $.ajax({
+                    url: '/chat/delete',
+                    type: 'POST',
+                    data: { 'message_id': userId },
+                    success: function(result) {
+                        // Faça algo com o resultado aqui
+                        console.log(result);
+                    },
+                    error: function(xhr, status, error) {
+                        // Trate o erro aqui
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Envio de arquivos (IMG focus) -->
+    <script>
+        $(document).ready(function() {
+            $('#photo-input').on('change', function() {
+                var file = this.files[0];
+                var formData = new FormData();
+                formData.append('photo', file);
+
+                let server_name = "{{ server_name }}";
+
+                $.ajax({
+                    url: '/chat/encrypt_server_name',
+                    type: 'POST',
+                    data: { server_name: server_name },
+                    success: function(response) {
+                        encryptedServer = response.encryptedServer;
+                    }
+                });
+        
+                $.ajax({
+                    url: '/chat/upload', // A URL para a qual o arquivo de imagem é enviado
+                    type: 'post',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        var filename = response.filename;  // Use o nome do arquivo retornado pelo servidor
+                        var message;
+                        
+                        if (filename.toLowerCase().endsWith('.jpg') || filename.toLowerCase().endsWith('.png') || filename.toLowerCase().endsWith('.gif') || filename.toLowerCase().endsWith('.jpeg') || filename.toLowerCase().endsWith('.webp') || filename.toLowerCase().endsWith('.svg') || filename.toLowerCase().endsWith('.bmp') || filename.toLowerCase().endsWith('.ico') || filename.toLowerCase().endsWith('.tif') || filename.toLowerCase().endsWith('.tiff') || filename.toLowerCase().endsWith('.jfif') || filename.toLowerCase().endsWith('.jp2') || filename.toLowerCase().endsWith('.jpe') || filename.toLowerCase().endsWith('.jif') || filename.toLowerCase().endsWith('.jfi') || filename.toLowerCase().endsWith('.jxr') || filename.toLowerCase().endsWith('.hdp') || filename.toLowerCase().endsWith('.wdp') || filename.toLowerCase().endsWith('.heif') || filename.toLowerCase().endsWith('.heic') || filename.toLowerCase().endsWith('.avif') || filename.toLowerCase().endsWith('.apng') || filename.toLowerCase().endsWith('.flif') || filename.toLowerCase().endsWith('.webp') || filename.toLowerCase().endsWith('.pdf') || filename.toLowerCase().endsWith('.svg')){
+                            message = '<img id="senfimg" src="./chatx/'+ encryptedServer + '/img/'+ filename +'" alt=" Imagem apagada do servidor" style="width: 100%;">';
+                        } else if (filename.toLowerCase().endsWith('.mp4') || filename.toLowerCase().endsWith('.webm')) {
+                            message = '<video id="senfimg" width="100%" height="100%" style="width: 100%; height: 100%; margin: 0;" controls><source src="./chatx/'+ encryptedServer + '/videos/'+ filename +'" type="video/mp4">Your browser does not support the video tag.</video>  ';
+                        } else if (filename.toLowerCase().endsWith('.apk')) {
+                            message = '<button class="btn" style="width: 100%;"><a href="./chatx/'+ encryptedServer + '/others/'+ filename +'" download style="color: white;">Atualizar Aplicativo</a></button><br>';
+                        }
+        
+                        $.ajax({
+                            url: '/chat', // A URL para a qual a mensagem é enviada
+                            type: 'post',
+                            data: { message: message },
+                            success: function() {
+                                // Atualizar a página de chat atual com a nova mensagem
+                                $('#chat-container').html(data);
+                                $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Gravar audio -->
+    <script>
+        let server_name = "{{ server_name }}";
+
+        $.ajax({
+            url: '/chat/encrypt_server_name',
+            type: 'POST',
+            data: { server_name: server_name },
+            success: function(response) {
+                encryptedServer = response.encryptedServer;
+            }
+        });
+
+        let mediaRecorder;
+        let audioChunks = [];
+
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+            if (window.MediaRecorder) {
+                mediaRecorder = new MediaRecorder(stream);
+
+                mediaRecorder.addEventListener("dataavailable", event => {
+                audioChunks.push(event.data);
+                });
+
+                mediaRecorder.addEventListener("stop", () => {
+                uploadRecording(audioChunks);
+                });
+
+                document.querySelector('#record').addEventListener('click', () => {
+                var recordButton = document.querySelector('#record');
+                if (mediaRecorder.state === "inactive") {
+                    audioChunks = [];
+                    recordButton.classList.remove('btn-primary');
+                    recordButton.classList.add('btn-danger');
+                    mediaRecorder.start();
+
+                } else {
+                    mediaRecorder.stop();
+                    recordButton.classList.remove('btn-danger');
+                    recordButton.classList.add('btn-primary');
+                }
+                });
+            } else {
+                console.error('MediaRecorder not supported on this browser');
+            }
+            })
+            .catch(error => {
+            console.error('Error accessing microphone:', error);
+            });
+        } else {
+        console.error('getUserMedia not supported on this browser');
+        }
+    
+        function uploadRecording(audioChunks) {
+            const audioBlob = new Blob(audioChunks);
+            const formData = new FormData();
+            formData.append('file', audioBlob, 'recording.wav');
+          
+            fetch('/chat/audio', {
+              method: 'POST',
+              body: formData
+            }).then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text();  // Converta a resposta em texto
+            }).then(filename => {
+              console.log('File uploaded successfully. Filename:', filename);  // Log do nome do arquivo
+              var message;
+              if (filename.toLowerCase().endsWith('.wav')) {
+                message = '<audio id="myAudio" controls controlsList="nodownload"><source src="./chatx/'+ encryptedServer + '/audios/'+ filename + '" type="audio/wav"></audio>';
+              }
+    
+              $.ajax({
+                url: '/chat', // A URL para a qual a mensagem é enviada
+                type: 'post',
+                data: { message: message },
+                success: function() {
+                    // Atualizar a página de chat atual com a nova mensagem
+                    $('#chat-container').html(data);
+                    $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+                }
+              });
+    
+            }).catch(error => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+    </script>
+
+    <!-- Enviar mensagem e gravar audio button -->
+    <script>
+        document.querySelector('#message').addEventListener('input', function() {
+            if ($(this).val().trim() === '') {
+                $('#send-button').hide();
+                $('#record').show();
+            } else {
+                $('#send-button').show();
+                $('#record').hide();
+            }
+        });
+    </script>
+
+</body>
+</html>

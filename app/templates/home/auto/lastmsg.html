@@ -1,0 +1,76 @@
+<div class="" style="display: flex; justify-content: space-between; padding: 10px; margin-bottom: -10px;">
+    <div class="espaco">
+    </div>            
+</div>
+{% if lastmsg%}
+    {% for private_room, dados in lastmsg.items() %}
+        <div class="d-flex justify-content-end p-2">
+            <div class="btn amigo chatFriendButton btmcolord" data-room="{{ private_room }}" data-username="{{ dados['friend'] }}" data-nickname="{{ dados['friendnickname'] }}" data-id="{{ dados['friendid'] }}">
+                <img src="{{ get_profile_pic_url(dados['friendnickname'], dados['friendid']) }}" alt="Profile Pic" id="chatProfilePic" style="object-fit: cover;">
+                <svg id="greencircle-{{ dados['friendid'] }}" class="greencircle" height="12" width="12" data-private-room="{{ private_room }}" data-id="{{ dados['friendid'] }}">
+                    <circle cx="6" cy="6" r="5" stroke="black" stroke-width="0.5" fill="green" />
+                </svg>
+                <span class="chatFriendName"><b>{{ dados['friend'].capitalize() }}</b></span>
+                <span class="day"><em>{{ dados['time'] }}</em></span>
+                <span class="chatFriendLastMSG" style="font-size: 0.8em;"><b>{{ dados['whosend'].capitalize() }}: </b><span>{{ dados['lastmsg'] }}</span></span>
+            </div>
+            <div id="apagarconversa-{{ private_room }}" class="btn btn-danger modal-trigger apagarconversa" style="position: absolute; right: 14px; transform: translateY(10%);">
+                <span class="material-icons">delete</span>
+            </div>
+        </div>
+        <div class="" style="display: flex; justify-content: space-between; padding: 10px; margin-bottom: -10px;">
+            <div class="espaco">
+            </div>            
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
+        <h4 class="text-muted" style="color: #0077ff;"><b style="color: #0077ff;">Nenhuma conversa</b></h4>
+    </div>
+{% endif %}
+
+<script>
+    // Função para verificar notificações
+    $(document).ready(function(){
+        $('.greencircle').each(function() {
+            var id = $(this).data('id');
+            var private_room = $(this).data('private-room');
+            $.get('/check_notifications', {private_room: private_room}, function(data) {
+                if (data.hasNotification) {
+                    $('#greencircle-' + id).show();
+                }
+            });
+        });
+    });
+</script>
+<script>
+    document.querySelectorAll('.chatFriendButton').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('friend_name').value = this.getAttribute('data-username');
+            document.getElementById('friend_nickname').value = this.getAttribute('data-nickname');
+            document.getElementById('friend_id').value = this.getAttribute('data-id');
+            document.getElementById('other_server_name').value = this.getAttribute('data-room');
+            document.getElementById('other_server_name').style.display = 'none';
+            document.getElementById('other_server_name_label').style.display = 'none';
+            document.getElementById('other_server_name_button').click();
+        });
+    });
+</script>
+<!-- Apagar Conversa -->
+<script>    
+    $(document).ready(function() {
+        var idApagarConversa; // Variável para armazenar o id do amigo que está sendo removido 
+        $('.apagarconversa').click(function(event) {
+            idApagarConversa = $(this).attr('id').split('-')[1];
+            $.ajax({
+                url: '/entrada/remove_id',
+                method: 'POST',
+                data: {
+                    metodo: 'chat',
+                    id: idApagarConversa
+                },
+            });
+        });
+    });
+</script>

@@ -1,0 +1,324 @@
+body {
+    background-image: url("../bg_branco.jpg");
+    background-size: 150%;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding-top: 60px;
+    /* Altura da barra de navegação superior */
+    padding-bottom: 40px;
+    /* Altura da barra de navegação inferior */
+}
+
+.navbar-custom {
+    background-color: #01101a;
+}
+
+.navbar-footer {
+    background-color: #01101a;
+}
+
+.navbar-footer .nav-link {
+    color: #ffffff;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #ffffff;
+}
+
+#navbarmenu {
+    color: #ffffff;
+}
+
+
+#navbarpic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+
+.profile-pic2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transform: translateY(0%);
+    align-items: center;
+}
+
+#chatprofilepic {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 95%;
+    height: 95%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#modalpic {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 2px;
+    border: 0px solid #888;
+    border-radius: 50%;
+    width: 320px;
+    height: 320px;
+    overflow: auto;
+    top: 5%;
+
+}
+
+.msgtextinput {
+    width: 99%;
+    margin-left: 5px;
+}
+
+.chat-container2 {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 45px;
+    border: 0px solid #ccc;
+}
+.chat-container {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+
+}
+
+.messagesent {
+    background-color: #003d66;
+    margin-left: 18%;
+    color: #ffffff;
+}
+
+.msgsend {
+    margin-top: 5px;
+    padding-right: 4.7px;
+    padding-left: -4px;
+    margin-left: 4px;
+}
+
+.msgreceive {
+    margin-top: 5px;
+    padding-right: 4.7px;
+    padding-left: -4px;
+    margin-left: 4px;
+}
+
+.messagereceived {
+    background-color: #010d1a;
+    margin-right: 18%;
+    color: #ffffff;
+}
+
+.chat-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+}
+
+.messagesent::after {
+    border-left-color: #d4f1f4;
+    border-right: none;
+    right: -15px;
+}
+
+.messagereceived::after {
+    border-right-color: #f4d4d4;
+    border-left: none;
+    left: -15px;
+}
+
+audio {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.datamsg1 {
+    padding-top: 7px;
+}
+
+#senfimg {
+    border-radius: 8px;
+}
+
+.fixed-size-button {
+    width: 42px;
+    /* Ajuste conforme necessário */
+    height: 42px;
+    /* Ajuste conforme necessário */
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border-radius: 50px;
+}
+
+.messagereceived .respostas {
+    /* Estilos para .respostas dentro de .messagesent */
+    background-color: rgba(16, 38, 85, 0.5);
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.messagesent .respostas {
+    /* Estilos para .respostas dentro de .messagereceived */
+    background-color: rgba(16, 38, 85, 0.5);
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-style: normal;
+}
+
+.respostas .respostax1 {
+    /* Estilos para .respostas dentro de .messagereceived */
+    color: #ffffff;
+    width: 100%;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 13px;
+    font-style: normal;
+    display: flex;
+    justify-content: center;  /* Alinha horizontalmente */
+    align-items: center; 
+}
+
+.deletedx1 {
+    /* Estilos para .respostas dentro de .messagereceived */
+    background-color: rgba(16, 38, 85, 0.5);
+    padding: 5px;
+    color: rgb(255, 255, 255);
+    width: 100%;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 13px;
+    font-style: normal;
+    display: flex;
+    justify-content: center;  /* Alinha horizontalmente */
+    align-items: center; 
+}
+
+.deletedx1 .block {
+    font-size: 14px;
+}
+
+.formreply {
+    background-color: #094b77bb;
+    padding-left: 12px;
+    color: rgb(255, 255, 255);
+    width: 100%;
+    border-radius: 10px;
+    font-size: 13px;
+    font-style: normal;
+    display: inline-block;
+}
+
+.formreply .formreplytext {
+    color: #000000;
+    height: 30px;
+    transform: translateY(28%);
+    width: 100%;
+}
+
+.formreply .formreplysubmit {
+    box-shadow: none;
+    color: #ffffff;
+    transform: translateY(8%);
+}
+
+.formreply2 {
+    margin-top: 5px;
+    background-color: #041a31bd;
+    padding-left: 12px;
+    color: rgb(255, 255, 255);
+    width: 100%;
+    border-radius: 10px;
+    font-size: 13px;
+    font-style: normal;
+    display: inline-block;
+}
+
+.formreply2 .formreplytext {
+    color: #ff0000;
+    height: 30px;
+    transform: translateY(28%);
+    width: 100%;
+}
+
+.formreply2 .formreplysubmit {
+    box-shadow: none;
+    color: #ffffff;
+    transform: translateY(8%);
+}
+
+.bottonbar {
+    padding-top: 3px;
+    padding-bottom: 10px;
+    transform: translateY(10%);
+    width: 100%;
+    display: flex;
+    justify-content: center;  /* Alinha horizontalmente */
+    align-items: center;  /* Alinha verticalmente */
+}
+
+.emoji {
+    font-size: 26px; /* Ajuste o valor conforme necessário */
+}
+
+#emoji-panel {
+    overflow: auto;
+    height: 180px; /* Ajuste a altura conforme necessário */
+}
+
+#emojitab {
+    display: none;
+}
+
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: rgba(0, 0, 0, 0.37);
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: rgba(0, 0, 0, 0.37);
+}
+
+:-ms-input-placeholder {
+    /* IE 10+ */
+    color: rgba(0, 0, 0, 0.37);
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: rgba(0, 0, 0, 0.37);
+}

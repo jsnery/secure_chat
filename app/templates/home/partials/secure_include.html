@@ -1,0 +1,20 @@
+<div id="homeDiv" >
+    <div class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
+        <form method="POST" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="input-field">
+                <input type="text" id="friend_name" name="friend_name" autocomplete="off" style="color: #ffffff; text-align: center;" hidden>
+                <input type="text" id="friend_nickname" name="friend_nickname" autocomplete="off" style="color: #ffffff; text-align: center;" hidden>
+                <input type="text" id="friend_id" name="friend_id" autocomplete="off" style="color: #ffffff; text-align: center;" hidden>
+            </div>
+            <div class="center-container" style="color: #000000;">
+                <input type="text" class="form-control text-center" id="custom_username" name="custom_username" autocomplete="off" placeholder="{{ username.capitalize() }}" style="color: #000000; text-align: center;" pattern="^$|^\S{2,10}$" title="O nome de usuário deve estar vazio ou ter entre 2 e 10 caracteres, não deve conter espaços em branco">
+            </div>
+            <label for="custom_username" style="color: #000000;">Nome</label>
+            <div class="center-container" style="color: #0000000;">
+                <input type="text" class="form-control text-center" id="other_server_name" name="other_server_name" autocomplete="off" placeholder="{{ server_name }}" style="color: #000000; text-align: center;" pattern="^$|.{6,}" title="O nome do servidor deve estar vazio ou ter no mínimo 6 caracteres">
+            </div>
+            <label id="other_server_name_label" for="other_server_name" style="color: #000000;">ID da sala</label>
+            <button id="other_server_name_button" class="btn btn-primary" type="submit" name="action"><b>Entrar</b></button>
+        </form>
+    </div>
+</div>

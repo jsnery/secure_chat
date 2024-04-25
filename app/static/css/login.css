@@ -1,0 +1,92 @@
+body {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-image: url("../bg_branco.jpg");
+    background-size: 150%;
+}
+
+.navbar-custom {
+    background-color: #01101a;
+}
+
+.navbar-footer {
+    background-color: #01101a;
+}
+
+.navbar-footer .nav-link {
+    color: #ffffff;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #ffffff;
+}
+
+#navbarmenu {
+    color: #ffffff;
+}
+
+
+#navbarpic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media only screen and (max-width: 600px) {
+    form {
+        padding: 20px;
+    }
+}
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.versenha {
+    color: #ffffff;
+    position: relative;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    height: 35px;
+    top: -44px;
+    right: -177px;
+}
+
+.up {
+    margin-top: -25px;
+}
+
+#popup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: auto; /* ou a largura que você preferir */
+    background-color: #f44336;
+    color: #ffffff;
+    padding: 0px;
+    border-radius: 4px;
+    text-align: center;
+    display: none;
+}

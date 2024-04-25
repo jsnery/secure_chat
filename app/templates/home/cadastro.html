@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Secure - Cadastro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="icon" href="./static/ico.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="{{ url_for('static', filename='css/cadastro.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-custom fixed-top" style="display: flex; justify-content: center;">
+        <a class="navbar-brand" style="position: absolute; left: 10px;" href="{{ url_for('login') }}">
+            <spam class="material-icons">arrow_back</spam>
+        </a>
+        <a class="navbar-brand" href="#"><strong>Secure</strong></a>
+    </nav>
+    <div class="container">
+        <form action="/cadastrar" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control text-center" id="username" name="username" autocomplete="new-password" placeholder="Primeiro nome" pattern="^\S{2,}$" title="O nome deve ter no mínimo 2 caracteres, não deve conter espaços em branco e deve ser apenas uma palavra" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control text-center" id="nickname" name="nickname" autocomplete="new-password" placeholder="Nome de usuário" pattern="^\S{6,}$" title="O nome de usuário deve ter no mínimo 6 caracteres e não deve conter espaços em branco" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control text-center" id="password" name="password" autocomplete="new-password" placeholder="Senha" pattern="^\S{6,}$" title="A senha deve ter no mínimo 6 caracteres e não deve conter espaços em branco" required>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit" name="action" style="width: auto;"><b>Cadastrar</b></button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

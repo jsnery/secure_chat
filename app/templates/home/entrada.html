@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+    <title>Secure - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no"> <!-- Adicionada a tag viewport -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="icon" href="./static/ico.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="{{ url_for('static', filename='css/entrada.css') }}" rel="stylesheet">
+    <title>Secure</title>
+</head>
+<body>
+    <!-- Navbar -->
+    {% include 'home/partials/navbar_include.html' %}
+
+    <!-- Aba de Chat -->
+    {% include 'home/partials/chat_include.html' %}
+
+    <!-- Aba de Amigos -->
+    {% include 'home/partials/friends_include.html' %}
+
+    <!-- Aba Secure -->
+    {% include 'home/partials/secure_include.html' %}
+
+    <!-- Aba de historico -->
+    {% include 'home/partials/last_include.html' %}
+
+     <!-- Aba conta e sair -->
+    {% include 'home/partials/account_include.html' %}
+    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Checar notificações -->
+    <script>
+        // Função para verificar notificações
+        function checkForNotifications() {
+            $('.greencircle2').each(function() {
+                var reads = JSON.parse('{{ reads|tojson|safe }}');
+                if (reads.includes(false)) {
+                    $('#greencircle2').show();
+                } else {
+                    $('#greencircle2').hide();
+                }
+            });
+        };
+        
+        // Verificar notificações a cada 5 segundos
+        setInterval(checkForNotifications, 10000);
+    </script>
+
+    <!-- Ready -->
+    <script>
+        $(document).ready(function(){
+            $('#chatButton').css('color', '#0077ff')
+            $.ajax({
+                url: '/entrada/lastmsg',
+                type: 'GET',
+                success: function(data) {
+                    $('#ultimasmsg').html(data); // Substitua 'id_da_div' pelo id da div que contém o código que você deseja atualizar
+                }
+            });
+            
+
+            $.ajax({
+                url: '/entrada/friendupdate',
+                type: 'GET',
+                success: function(data) {
+                    $('#friendupdate').html(data); // Substitua 'id_da_div' pelo id da div que contém o código que você deseja atualizar
+                }
+            });
+
+            $.ajax({
+                url: '/entrada/lastservercheck',
+                type: 'GET',
+                success: function(data) {
+                    $('#lastservercheck').html(data); // Substitua 'id_da_div' pelo id da div que contém o código que você deseja atualizar
+                }
+            });
+
+            $('.greencircle2').each(function() {
+                var reads = JSON.parse('{{ reads|tojson|safe }}');
+                if (reads.includes(false)) {
+                    $('#greencircle2').show();
+                } else {
+                    $('#greencircle2').hide();
+                }
+            });
+        });
+    </script>
+
+    <!-- Carregamento automatico -->
+    <script>
+        var ultimasmsg = '';
+        var friendupdate = '';
+        var lastservercheck = '';
+
+        setInterval(function() {
+            $.ajax({
+                url: '/entrada/lastmsg',
+                type: 'GET',
+                success: function(data) {
+                    if (data !== ultimasmsg) {
+                        $('#ultimasmsg').html(data);
+                        ultimasmsg = data;
+                    }
+                }
+            });
+
+            $.ajax({
+                url: '/entrada/friendupdate',
+                type: 'GET',
+                success: function(data) {
+                    if (data !== friendupdate) {
+                        $('#friendupdate').html(data);
+                        friendupdate = data;
+                    }
+                }
+            });
+
+            $.ajax({
+                url: '/entrada/lastservercheck',
+                type: 'GET',
+                success: function(data) {
+                    if (data !== lastservercheck) {
+                        $('#lastservercheck').html(data);
+                        lastservercheck = data;
+                    }
+                }
+            });
+        }, 1000);
+    </script>
+
+    <!-- Navbar buttons -->
+    <script>
+        $('#chatButton').click(function() {
+            $('#chatButton').css('color', '#0077ff')
+            $('#chatDiv').css('display', 'block');
+            $('#groupButton').css('color', '#ffffff')
+            $('#groupDiv').css('display', 'none');
+            $('#friendButton').css('color', '#ffffff')
+            $('#friendDiv').css('display', 'none');
+            $('#historicButton').css('color', '#ffffff')
+            $('#historicDiv').css('display', 'none');
+            $('#accountButton').css('color', '#ffffff')
+            $('#accountDiv').css('display', 'none');
+            $('#homeButton').css('color', '#ffffff')
+            $('#homeDiv').css('display', 'none');
+        });
+
+        $('#homeButton').click(function() {
+            $('#chatButton').css('color', '#ffffff')
+            $('#chatDiv').css('display', 'none');
+            $('#groupButton').css('color', '#ffffff')
+            $('#groupDiv').css('display', 'none');
+            $('#friendButton').css('color', '#ffffff')
+            $('#friendDiv').css('display', 'none');
+            $('#historicButton').css('color', '#ffffff')
+            $('#historicDiv').css('display', 'none');
+            $('#accountButton').css('color', '#ffffff')
+            $('#accountDiv').css('display', 'none');
+            $('#homeButton').css('color', '#0077ff')
+            $('#homeDiv').css('display', 'block');
+        });
+
+        $('#friendButton').click(function() {
+            $('#chatButton').css('color', '#ffffff')
+            $('#chatDiv').css('display', 'none');
+            $('#groupButton').css('color', '#ffffff')
+            $('#groupDiv').css('display', 'block');
+            $('#friendButton').css('color', '#0077ff')
+            $('#friendDiv').css('display', 'none');
+            $('#accountButton').css('color', '#ffffff')
+            $('#accountDiv').css('display', 'none');
+            $('#historicButton').css('color', '#ffffff')
+            $('#historicDiv').css('display', 'none');
+            $('#homeButton').css('color', '#ffffff')
+            $('#homeDiv').css('display', 'none');
+        });
+
+        $('#historicButton').click(function() {
+            $('#historicButton').css('color', '#0077ff')
+            $('#historicDiv').css('display', 'block');
+            $('#chatButton').css('color', '#ffffff')
+            $('#chatDiv').css('display', 'none');
+            $('#groupButton').css('color', '#ffffff')
+            $('#groupDiv').css('display', 'none');
+            $('#accountButton').css('color', '#ffffff')
+            $('#accountDiv').css('display', 'none');
+            $('#friendButton').css('color', '#ffffff')
+            $('#friendDiv').css('display', 'none');
+            $('#homeButton').css('color', '#ffffff')
+            $('#homeDiv').css('display', 'none');
+        });
+
+        $('#accountButton').click(function() {
+            $('#accountButton').css('color', '#0077ff')
+            $('#accountDiv').css('display', 'block');
+            $('#chatButton').css('color', '#ffffff')
+            $('#chatDiv').css('display', 'none');
+            $('#groupButton').css('color', '#ffffff')
+            $('#groupDiv').css('display', 'none');
+            $('#friendButton').css('color', '#ffffff')
+            $('#friendDiv').css('display', 'none');
+            $('#historicButton').css('color', '#ffffff')
+            $('#historicDiv').css('display', 'none');
+            $('#homeButton').css('color', '#ffffff')
+            $('#homeDiv').css('display', 'none');
+        });
+    </script>
+
+    <!-- Trocar foto de perfil -->
+    <script>
+        function chooseFile(event) {
+            event.preventDefault();
+            document.getElementById('photo').click();
+        }
+    
+        function submitForm() {
+            var input = document.getElementById('photo');
+            if (input.files.length > 0) {
+                document.getElementById('uploadForm').submit();
+            }
+        }
+    </script>
+
+    <!-- Add friend close -->
+    <script>
+        $('.btn-friendadd').click(function() {
+            $('#addFriendModal').modal('hide');
+        });
+    </script>
+
+    <script>
+        $('#changePasswordForm').on('submit', function(e) {
+            e.preventDefault();
+    
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function() {
+                    window.location.href = '/entrada/logout';
+                },
+                error: function(jqXHR) {
+                    if (jqXHR.status === 401) {
+                        $('#errorMessage').show();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

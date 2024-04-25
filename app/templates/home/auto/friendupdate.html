@@ -1,0 +1,55 @@
+{% if amigos %}
+    {% for id, detalhes in amigos.items() %}
+        <div class="d-flex justify-content-end p-2">
+            <a href="#" data-link="{{ get_profile_pic_url(detalhes['nickname'], detalhes['id']) }}" >
+                <img src="{{ get_profile_pic_url(detalhes['nickname'], detalhes['id']) }}" alt="Profile Pic" id="friendProfilePic" style="object-fit: cover; position: absolute; left: 14px; transform: translateY(10%);">
+            </a>
+            <div class="btn amigo myFriendButton btmcolord" data-room="{{ detalhes['private_room'] }}" data-username="{{ detalhes['username'] }}" data-nickname="{{ detalhes['nickname'] }}" data-id="{{ detalhes['id'] }}">
+                <b>{{ detalhes['username'].capitalize() }}</b>
+            </div>
+            <div id="removeramigo-{{ id }}" class="btn btn-danger modal-trigger removeramigo" style="position: absolute; right: 14px; transform: translateY(10%);">
+                <span class="material-icons">delete</span>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
+        <h4 class="text-muted" style="color: #0077ff;"><b style="color: #0077ff;">Nenhum Amigo</b></h4>
+    </div>
+{% endif %}
+
+
+<!-- Abrir corversa pela lista de amigos -->
+<script>
+    document.querySelectorAll('.myFriendButton').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('friend_name').value = this.getAttribute('data-username');
+            document.getElementById('friend_nickname').value = this.getAttribute('data-nickname');
+            document.getElementById('friend_id').value = this.getAttribute('data-id');
+            document.getElementById('other_server_name').value = this.getAttribute('data-room');
+            document.getElementById('other_server_name').style.display = 'none';
+            document.getElementById('other_server_name_label').style.display = 'none';
+            document.getElementById('other_server_name_button').click();
+        });
+    });
+</script>
+
+<!-- Excluir amizade-->
+<script>    
+    $(document).ready(function() {
+        var idAmigoRemovendo; // Variável para armazenar o id do amigo que está sendo removido
+    
+        $('.removeramigo').click(function(event) {
+            idAmigoRemovendo = $(this).attr('id').split('-')[1];
+            $.ajax({
+                url: '/entrada/remove_id',
+                method: 'POST',
+                data: {
+                    metodo: 'friend',
+                    id: idAmigoRemovendo
+                },
+            });
+        });
+    });
+</script>

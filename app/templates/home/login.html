@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Secure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no"> <!-- Adicionada a tag viewport -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="icon" href="./static/ico.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-custom fixed-top">
+        <a class="navbar-brand mx-auto" href=""><strong>Secure</strong></a>
+    </nav>
+
+    <div class="container">
+        <form action="{{ url_for('login') }}" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control text-center" id="nickname" name="nickname" placeholder="Nome de usuário" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control text-center" id="password" name="password" autocomplete="new-password" placeholder="Senha" required>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit" name="action" style="width: auto;"><b>Login</b></button>
+            <div class="text-center" style="padding-top: 15px;">
+                <a href="./cadastrar">Cadastre-se</a>
+            </div>
+        </form>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                var popup = document.getElementById('popup');
+                {% for message in messages %}
+                    popup.innerHTML += "<p><b>{{ message }}</b></p>";
+                {% endfor %}
+                popup.style.display = 'block';
+                setTimeout(function() {
+                    popup.style.display = 'none';
+                }, 3000);
+            </script>
+        {% endif %}
+    {% endwith %}
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

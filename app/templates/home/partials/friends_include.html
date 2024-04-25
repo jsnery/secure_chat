@@ -1,0 +1,25 @@
+<div id="groupDiv">
+    <div class="" style="display: block; justify-content: space-between; padding: 10px; margin-bottom: -10px;">
+        <button id="" class="btn btn-primary fixed-size-button" data-toggle="modal" data-target="#addFriendModal" style="position: fixed; bottom: 70px; right: 10px; z-index: 9999;">
+            <span class="material-icons">person_add</span>
+        </button>
+    </div>
+    <div id="friendupdate">
+    </div>
+</div>
+<!-- Modal adicionar amigo da div groupDiv -->
+<div class="modal fade" id="addFriendModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="z-index: 1050;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="addFriendM">
+            <form action="/entrada/add_friend" method="post">
+                <div class="modal-body">
+                    <input type="text" id="friend_username" name="friend_username" placeholder='Nome de usuário' class="friend_username" required autocomplete="off" style="color: #000000; text-align: center; width: 100%;">
+                </div>
+                <div class="modal-footer" style="justify-content: space-between;">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    <button id="friend_username" name="friend_username" class="btn btn-primary btn-friendadd"><b>Adicionar Amigo</b></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

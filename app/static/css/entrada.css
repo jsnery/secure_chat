@@ -1,0 +1,370 @@
+body {
+    background-image: url("../bg_branco.jpg");
+    background-size: 150%;
+    padding-top: 60px;
+    /* Altura da barra de navegação superior */
+    padding-bottom: 60px;
+    /* Altura da barra de navegação inferior */
+}
+
+.navbar-custom {
+    background-color: #01101a;
+}
+
+.navbar-footer {
+    background-color: #01101a;
+}
+
+.navbar-footer .nav-link {
+    color: #ffffff;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #ffffff;
+}
+
+#navbarmenu {
+    color: #ffffff;
+}
+
+.amigo {
+    background-color: #01101a;
+    color: #ffffff;
+    width: 100%;
+    height: 60px;
+    border-radius: 50px;
+
+}
+
+#navbarpic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+
+.profile-pic2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#chatProfilePic {
+    width: 49px;
+    height: 49px;
+    transform: translateY(10%);
+    border-radius: 50%;
+    align-items: left;
+    border: 2px solid #ffffff;
+}
+
+#friendProfilePic {
+    width: 49px;
+    height: 49px;
+    transform: translateY(10%);
+    border-radius: 50%;
+    align-items: left;
+    border: 2px solid #ffffff;
+}
+
+#historyProfilePic {
+    width: 49px;
+    height: 49px;
+    transform: translateY(10%);
+    border-radius: 50%;
+    align-items: left;
+    border: 2px solid #ffffff;
+}
+
+.chatFriendName {
+    position: absolute;
+    transform: translateY(-40%);
+    left: 75px;
+}
+
+.chatFriendLastMSG {
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 278px;
+    /* Ajuste este valor de acordo com o tamanho da sua div */
+    transform: translateY(40%);
+    left: 75px;
+}
+
+.day {
+    position: absolute;
+    font-size: 0.7em;
+    right: 70px;
+    transform: translateY(-60%);
+}
+
+.chatFriendButton {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 2px;
+    margin-bottom: -15px;
+    margin-top: 0px;
+}
+
+.chatFriendButton img {
+    margin-right: 15px;
+    margin-left: 5px;
+    margin-bottom: 11px;
+}
+
+.greencircle {
+    position: absolute;
+    transform: translateY(-175%);
+    left: 58px;
+    display: none;
+}
+
+.fixed-size-button {
+    width: 42px;
+    /* Ajuste conforme necessário */
+    height: 42px;
+    /* Ajuste conforme necessário */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border-radius: 50px;
+}
+
+.apagarconversa {
+    width: 49px;
+    height: 49px;
+    display: flex;
+    transform: translateY(-5%);
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border-radius: 50px;
+}
+
+#chatDiv {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+    position: fixed;
+    padding-top: 50px;
+    /* Altura da barra de navegação superior */
+    padding-bottom: 50px;
+    /* Altura da barra de navegação inferior */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    height: 100%;
+}
+
+#groupDiv {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+    position: fixed;
+    padding-top: 50px;
+    /* Altura da barra de navegação superior */
+    padding-bottom: 50px;
+    /* Altura da barra de navegação inferior */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    height: 100%;
+    display: none;
+}
+
+#addFriendModal {
+    margin-top: 50px;
+}
+
+#addFriendM {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+}
+
+.myFriendButton {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 2px;
+    padding-left: 60px;
+    margin-bottom: -15px;
+    margin-top: 0px;
+}
+
+.myFriendButton img {
+    margin-right: 15px;
+    margin-left: 5px;
+    margin-bottom: 11px;
+}
+
+.removeramigo {
+    width: 49px;
+    height: 49px;
+    display: flex;
+    transform: translateY(-5%);
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border-radius: 50px;
+}
+
+#historicDiv {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+    position: fixed;
+    padding-top: 50px;
+    /* Altura da barra de navegação superior */
+    padding-bottom: 50px;
+    /* Altura da barra de navegação inferior */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    height: 100%;
+    display: none;
+}
+
+.lastRoomButton {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 2px;
+    margin-bottom: -15px;
+    margin-top: 0px;
+}
+
+.lastRoomButton img {
+    margin-right: 15px;
+    margin-left: 5px;
+    margin-bottom: 11px;
+}
+
+.removersala {
+    width: 49px;
+    height: 49px;
+    display: flex;
+    transform: translateY(-5%);
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border-radius: 50px;
+}
+
+#accountDiv {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+    position: fixed;
+    padding-top: 50px;
+    /* Altura da barra de navegação superior */
+    padding-bottom: 50px;
+    /* Altura da barra de navegação inferior */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    height: 100%;
+    display: none;
+}
+
+#uploadForm {
+    display: flex;
+    justify-content: center;
+}
+
+.file-field {
+    text-align: center;
+}
+
+#accountProfilePic {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid #01101a;
+}
+
+#homeDiv {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+    position: fixed;
+    padding-top: 50px;
+    /* Altura da barra de navegação superior */
+    padding-bottom: 50px;
+    /* Altura da barra de navegação inferior */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    height: 100%;
+    display: none;
+}
+
+
+#friendProfilePic2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 95%;
+    height: 95%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#modalpic {
+    background-image: url("../bg_branco.jpg");
+    background-size: cover;
+    background-color: #fefefe;
+    margin: 0% auto;
+    padding: 2px;
+    border: 0px solid #888;
+    border-radius: 50%;
+    width: 320px;
+    height: 320px;
+    overflow: auto;
+    top: 5%;
+
+}
+
+.btmcolord {
+    background-color: #01101a;
+    color: #ffffff;
+}
+
+.btmcolord:hover {
+    background-color: #011827;
+    color: #ffffff;
+}
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: rgba(0, 0, 0, 0.37);
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: rgba(0, 0, 0, 0.37);
+}
+
+:-ms-input-placeholder {
+    /* IE 10+ */
+    color: rgba(0, 0, 0, 0.37);
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: rgba(0, 0, 0, 0.37);
+}

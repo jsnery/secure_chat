@@ -1,0 +1,25 @@
+# Arquivos de byte compilados
+__pycache__/
+__pycache__
+*.pyc
+.mypy_cache/
+.mypy_cache
+
+# Arquivos gerados pelo ambiente de desenvolvimento
+.idea/
+.vscode/
+
+# Arquivos de configuração local
+.env
+
+# Arquivos de log
+*.log
+
+# Arquivos de saída de teste
+test_output/
+
+# Dependências e pacotes instalados
+venv/
+venv
+
+realtimedb_base.py
