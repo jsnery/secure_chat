@@ -21,6 +21,7 @@ def firebase_init(json_name: str, url_db: str):
     })
 
 
+# Inicialize o Firebase
 firebase_init(
     'auth.json',
     'https://seudb-rtdb.firebaseio.com/'
